@@ -1,5 +1,5 @@
-from adquery import *
-from adbase import * 
+from .adquery import *
+from .adbase import * 
 
 _ad_query_obj = ADQuery()
 

@@ -1,4 +1,4 @@
-from adobject import *
+from .adobject import *
 
 class ADComputer(ADObject):
     """Python class representing a computer object in Active Directory."""

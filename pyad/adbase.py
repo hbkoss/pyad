@@ -16,8 +16,8 @@ except ImportError:
     raise Exception("pywin32 library required. Download from http://sourceforge.net/projects/pywin32/")
 
 # Import constants and other common elements.
-from pyadconstants import *
-from pyadexceptions import *
+from .pyadconstants import *
+from .pyadexceptions import *
 
 # create connection to ADSI COM object
 _adsi_provider = win32com.client.Dispatch('ADsNameSpaces')
@@ -74,5 +74,5 @@ class ADBase(object):
         return options
 
 def set_defaults(**kwargs):
-    for k, v in kwargs.iteritems():
+    for k, v in kwargs.items():
         setattr(ADBase, '_'.join(('default', k)), v)

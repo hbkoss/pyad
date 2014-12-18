@@ -1,4 +1,5 @@
-from adbase import *
+import sys
+from .adbase import *
 
 def convert_error_code(error_code):
     """Convert error code from the format returned by pywin32 to the format that Microsoft documents everything in."""
@@ -61,8 +62,11 @@ def convert_datetime(adsi_time_com_obj):
     """Converts 64-bit integer COM object representing time into a python datetime object."""
     # credit goes to John Nielsen who documented this at
     # http://docs.activestate.com/activepython/2.6/pywin32/html/com/help/active_directory.html. 
+    if sys.version > '3':
+        long = int
+
     return datetime.datetime.fromtimestamp((((long(adsi_time_com_obj.highpart) << 32)\
-        + long(adsi_time_com_obj.lowpart)) - 116444736000000000L)/10000000)
+        + long(adsi_time_com_obj.lowpart)) - 116444736000000000)/10000000)
         
 def convert_bigint(obj):
     # based on http://www.selfadsi.org/ads-attributes/user-usnChanged.htm
