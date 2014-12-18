@@ -1,4 +1,4 @@
-from adcontainer import *
+from .adcontainer import *
 
 class ADDomain(ADContainer):
 

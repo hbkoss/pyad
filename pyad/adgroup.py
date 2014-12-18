@@ -1,5 +1,5 @@
-from adobject import *
-import pyadconstants
+from .adobject import *
+from . import pyadconstants
 
 class ADGroup(ADObject):
 

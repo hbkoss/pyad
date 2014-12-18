@@ -1,5 +1,5 @@
-from adobject import *
-from adsearch import _ad_query_obj
+from .adobject import *
+from .adsearch import _ad_query_obj
 
 class ADUser(ADObject):
     
@@ -20,7 +20,7 @@ class ADUser(ADObject):
         try:
             self._ldap_adsi_obj.SetPassword(password)
             self._flush()
-        except pywintypes.com_error, excpt: 
+        except pywintypes.com_error as excpt: 
             pyadutils.pass_up_com_exception(excpt)
 
     def force_pwd_change_on_login(self): 

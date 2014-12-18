@@ -1,6 +1,6 @@
-import adsearch
-import pyadutils
-from adbase import *
+from . import adsearch
+from . import pyadutils
+from .adbase import *
 
 class ADObject(ADBase):
     """Python object that represents any active directory object."""
@@ -283,7 +283,7 @@ class ADObject(ADBase):
                     return list(value)
             # this just means that the attribute doesn't have a value which
             # we imply means null instead of throwing an error..
-            except pywintypes.com_error, excpt:
+            except pywintypes.com_error as excpt:
                 if pyadutils.interpret_com_exception(excpt)['error_constant'] == 'E_ADS_PROPERTY_NOT_FOUND':
                     return [] if always_return_list else None
                 else:
@@ -295,7 +295,7 @@ class ADObject(ADBase):
         else:
             try:
                 self._ldap_adsi_obj.putEx(action, attribute, new_value)
-            except pywintypes.com_error, excpt:
+            except pywintypes.com_error as excpt:
                 pyadutils.pass_up_com_exception(excpt)
 
     def clear_attribute(self, attribute):
@@ -380,7 +380,7 @@ class ADObject(ADBase):
             if self._ldap_adsi_obj.AccountDisabled == False:
                 self._ldap_adsi_obj.AccountDisabled = True
                 self._flush()
-        except pywintypes.com_error, excpt:
+        except pywintypes.com_error as excpt:
             pyadutils.pass_up_com_exception(excpt)
 
     def enable(self):
@@ -389,7 +389,7 @@ class ADObject(ADBase):
             if self._ldap_adsi_obj.AccountDisabled == True:
                 self._ldap_adsi_obj.AccountDisabled = False
                 self._flush()
-        except pywintypes.com_error, excpt:
+        except pywintypes.com_error as excpt:
             pyadutils.pass_up_com_exception(excpt)
 
     def _get_password_last_set(self):
@@ -413,7 +413,7 @@ class ADObject(ADBase):
             new_path = self.default_ldap_protocol + '://' + self.dn
             new_ou_object._ldap_adsi_obj.MoveHere(new_path, self.prefixed_cn)
             new_ou_object._flush()
-        except pywintypes.com_error, excpt:
+        except pywintypes.com_error as excpt:
             pyadutils.pass_up_com_exception(excpt)
         new_dn = ','.join((self.prefixed_cn, new_ou_object.dn))
         time.sleep(.5)
@@ -438,7 +438,7 @@ class ADObject(ADBase):
             new_path = self.default_ldap_protocol+'://' + self.dn
             parent._ldap_adsi_obj.MoveHere(new_path, pcn)
             parent._flush()
-        except pywintypes.com_error, excpt:
+        except pywintypes.com_error as excpt:
             pyadutils.pass_up_com_exception(excpt)
         new_dn = ','.join((pcn, parent.dn))
         time.sleep(.5)
@@ -497,7 +497,7 @@ class ADObject(ADBase):
                             text = doc.createTextNode(value.encode("latin-1", 'replace'))
                         node.appendChild(text)
                     except:
-                        print 'attribute: %s not xml-able' % attribute
+                        print('attribute: %s not xml-able' % attribute)
                 else:
                     node.setAttribute("type", "multiValued")
                     ok_elem = False
@@ -511,7 +511,7 @@ class ADObject(ADBase):
                                 node.appendChild(valnode)
                                 ok_elem=True
                     except:
-                        print 'attribute: %s not xml-able' % attribute
+                        print('attribute: %s not xml-able' % attribute)
                 if ok_elem: adobj_xml_doc.appendChild(node)
         return doc.toxml(encoding="UTF-8")
 

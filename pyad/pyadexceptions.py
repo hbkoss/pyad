@@ -4,8 +4,8 @@ class comException(Exception):
         self.additional_info = additional_info   
     
     def __str__(self):
-        print "Error Constant: %s" % self.error_info['error_constant']
-        print "Error Code: %s" % str(self.error_info['error_code'])
+        print("Error Constant: %s" % self.error_info['error_constant'])
+        print("Error Code: %s" % str(self.error_info['error_code']))
         #print "Error Message: %s" % self.error_info['error_message']
         #print "type is ", self.error_info['error_message'].__class__
         #return "%s (%s): %s" % (str(self.error_info['error_constant']), str(self.error_info['error_code']), str(self.error_info['error_message']))

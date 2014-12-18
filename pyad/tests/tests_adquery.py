@@ -1,8 +1,9 @@
-from pyadunittest import *
+from .pyadunittest import *
+from pyad import *
 
 class TestADQuery(ADTestCase):
     def setUp(self):
-        self.ad_query = pyad.adquery.ADQuery()
+        self.ad_query = adquery.ADQuery()
     
     def test_dne_rowcount(self):
         query = "cn = '%s'" % self.KNOWN_DNE_OBJECT
@@ -12,7 +13,7 @@ class TestADQuery(ADTestCase):
     def test_dne_single_result(self):
         query = "cn = '%s'" % self.KNOWN_DNE_OBJECT
         self.ad_query.execute_query(where_clause = query)
-        self.assertRaises(pyad.pyadexceptions.invalidResults, self.ad_query.get_single_result)
+        self.assertRaises(pyadexceptions.invalidResults, self.ad_query.get_single_result)
         
     def test_dne_all_results(self):
         query = "cn = '%s'" % self.KNOWN_DNE_OBJECT
@@ -42,7 +43,7 @@ class TestADQuery(ADTestCase):
     def test_multiple_single_result(self):
         query = "cn = '%s' or cn = '%s'" % (self.KNOWN_EXISTS_USER, self.KNOWN_EXISTS_COMPUTER)
         self.ad_query.execute_query(where_clause = query)
-        self.assertRaises(pyad.pyadexceptions.invalidResults, self.ad_query.get_single_result)
+        self.assertRaises(pyadexceptions.invalidResults, self.ad_query.get_single_result)
         
     def test_multiple_all_results(self):
         query = "cn = '%s' or cn = '%s'" % (self.KNOWN_EXISTS_USER, self.KNOWN_EXISTS_COMPUTER)
